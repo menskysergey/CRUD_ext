@@ -1,6 +1,7 @@
 Ext.onReady(function () {
 
     var Product = Ext.data.Record.create([
+        {name: 'id'},
         {
             name: 'article',
             type: 'number'
@@ -35,7 +36,7 @@ Ext.onReady(function () {
     var reader = new Ext.data.JsonReader({
         totalProperty: 'total',
         successProperty: 'success',
-        idProperty: 'article',
+        idProperty: 'id',
         root: 'data',
         messageProperty: 'message'
     }, Product);
@@ -58,6 +59,7 @@ Ext.onReady(function () {
 
 
     Ext.data.DataProxy.addListener('exception', function (proxy, type, action, options, res) {
+        console.log(res.message);
         Ext.Msg.show({
             title: 'ОШИБКА',
             msg: res.message,
@@ -73,11 +75,13 @@ Ext.onReady(function () {
             width: 70,
             sortable: true,
             dataIndex: 'article',
-            editor: {xtype: 'textfield',
+            editor: {
+                xtype: 'textfield',
                 allowBlank: false,
                 regex: /^\d+$/,
                 regexText: 'Артикул должен состоять из цифр',
-                blankText: 'Поле артикула не может быть пустым'}
+                blankText: 'Поле артикула не может быть пустым'
+            }
 
         },
         {

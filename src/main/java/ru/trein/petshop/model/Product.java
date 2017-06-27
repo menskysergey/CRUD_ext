@@ -4,11 +4,20 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect
 public class Product {
+    private int id;
     private int article;
     private String manufacturer;
     private String name;
     private float weight;
     private float price;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getArticle() {
         return article;

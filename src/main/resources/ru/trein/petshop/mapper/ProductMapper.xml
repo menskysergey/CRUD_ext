@@ -24,15 +24,16 @@
 
     <update id="updateProduct" parameterType="ru.trein.petshop.model.Product">
         UPDATE products set
+        article = #{article},
         manufacturer = #{manufacturer},
         name = #{name},
         weight = #{weight},
         price = #{price}
-        WHERE article = #{article}
+        WHERE id = #{id}
     </update>
 
     <delete id="deleteProduct" parameterType="java.lang.Integer">
-        DELETE FROM products WHERE article = #{article}
+        DELETE FROM products WHERE id = #{id}
     </delete>
 
 </mapper>

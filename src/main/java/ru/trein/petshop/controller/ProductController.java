@@ -33,7 +33,7 @@ public class ProductController {
 
     @RequestMapping(value = "/product/create.action")
     @ResponseBody
-    public Map<String, Object> create(@RequestBody Map data) throws Exception {
+    public Map<String, Object> create(@RequestBody Map data) {
         try {
 
             List<Product> contacts = productService.create(data.get("data"));
@@ -41,9 +41,9 @@ public class ProductController {
             return getMap(contacts);
 
         } catch (DuplicateKeyException e) {
-            return getModelMapError("Продукт с таким артикулом уже существует");
+            return getModelMapError("Продукт с таким артикулом уже существует.");
         } catch (Exception e) {
-            return getModelMapError("Ошибка при добавление продукта");
+            return getModelMapError("Ошибка при добавление продукта.");
         }
     }
 
@@ -55,6 +55,8 @@ public class ProductController {
             List<Product> products = productService.update(data.get("data"));
 
             return getMap(products);
+        } catch (DuplicateKeyException e) {
+            return getModelMapError("Продукт с таким артикулом уже существует.");
         } catch (Exception e) {
             return getModelMapError("Ошибка при обновление продуктов.");
         }
@@ -66,7 +68,7 @@ public class ProductController {
         try {
             productService.delete(data.get("data"));
 
-            Map<String, Object> modelMap = new HashMap<>();
+            Map<String, Object> modelMap = new HashMap<>(1);
             modelMap.put("success", true);
 
             return modelMap;
